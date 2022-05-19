@@ -15,40 +15,59 @@ Created on Mon May 16 19:14:47 2022
 
 #%% ライブラリのインポート
 
+import time
+
 import requests
 from bs4 import BeautifulSoup
-
 import pandas as pd
 
 #%%
 
 def main():
     
+    ############　ハードコーディング
     # 初日
     url = "https://www.boatrace.jp/owpc/pc/race/odds3t?rno=12&jcd=01&hd=20220511"
     df_odds = get_trifecta_odds(url)
     df_odds.to_csv("odds_day1.csv", index=False)
+    time.sleep(1)
     
     # 2日目
     url = "https://www.boatrace.jp/owpc/pc/race/odds3t?rno=12&jcd=01&hd=20220512"
     df_odds = get_trifecta_odds(url)
     df_odds.to_csv("odds_day2.csv", index=False)
+    time.sleep(1)
     
     # 3日目
     url = "https://www.boatrace.jp/owpc/pc/race/odds3t?rno=12&jcd=01&hd=20220513"
     df_odds = get_trifecta_odds(url)    
     df_odds.to_csv("odds_day3.csv", index=False)
-
+    time.sleep(1)
+    
     # 4日目
     url = "https://www.boatrace.jp/owpc/pc/race/odds3t?rno=12&jcd=01&hd=20220514"
     df_odds = get_trifecta_odds(url)
     df_odds.to_csv("odds_day4.csv", index=False)
+    time.sleep(1)
     
     # 5日目
     url = "https://www.boatrace.jp/owpc/pc/race/odds3t?rno=12&jcd=01&hd=20220515"
     df_odds = get_trifecta_odds(url)
     df_odds.to_csv("odds_day5.csv", index=False)
-
+    time.sleep(1)
+    
+    ############　ハードコーディングをやめよう
+    
+    for i in range(1, 6, 1):
+        print(i)    
+        
+        url = f"https://www.boatrace.jp/owpc/pc/race/odds3t?rno=12&jcd=01&hd=2022051{i}"
+        df_odds = get_trifecta_odds(url)
+        df_odds.to_csv(f"odds_day{i}.csv", index=False)
+        
+        time.sleep(1)
+        
+    
 #%%
 
 def get_trifecta_odds(url):
